@@ -1,5 +1,5 @@
 {
-  "name": "dag",
+  "name": "react-library-tpl",
   "version": "1.0.0",
   "description": "",
   "author": "ximing",
@@ -22,6 +22,10 @@
     "predeploy": "cd example && npm install && npm run build",
     "deploy": "gh-pages -d example/build",
     "typecheck": "tsc --project . --noEmit #"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/",
+    "access": "public"
   },
   "dependencies": {},
   "peerDependencies": {
