@@ -1,0 +1,43 @@
+name: Example Build & Deploy to GitHub Pages
+on:
+  push:
+    branches:
+      - master
+    tags:
+      - v1
+    paths:
+      - 'src/**'
+      - 'example/**'
+      - '.github/**'
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@master
+      - name: Cache node modules
+        uses: actions/cache@v1
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
+      - name: use Node.js 10
+        uses: actions/setup-node@v1
+        with:
+          node-version: '10.x'
+      - name: npm script
+        run: |
+          npm install
+          npm run build:example
+        env:
+          CI: true
+      - name: Deploy 🚀
+          uses: JamesIves/github-pages-deploy-action@releases/v3
+          with:
+            ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+            BRANCH: gh-pages
+            FOLDER: example/build
