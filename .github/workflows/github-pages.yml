@@ -9,6 +9,7 @@ on:
       - 'src/**'
       - 'example/**'
       - '.github/**'
+  repository_dispatch:
 jobs:
   build:
     name: Build
