@@ -14,8 +14,10 @@ jobs:
     name: Build
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout  🛎️
         uses: actions/checkout@master
+        with:
+          persist-credentials: false
       - name: Cache node modules
         uses: actions/cache@v1
         with:
@@ -29,7 +31,7 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: '10.x'
-      - name: npm script
+      - name: npm script 🔧
         run: |
           npm install
           npm run build:example
@@ -41,3 +43,5 @@ jobs:
           ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
           BRANCH: gh-pages
           FOLDER: example/build
+          GIT_CONFIG_NAME: ${{ secrets.GIT_CONFIG_NAME}}
+          GIT_CONFIG_EMAIL: ${{ secrets.GIT_CONFIG_NAME}}
